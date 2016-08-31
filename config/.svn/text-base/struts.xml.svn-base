@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 配置为开发模式(文件修改后不用重新启动) -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 把action扩展名改为.do -->
+    <constant name="struts.action.extension" value="do" />
+    <!-- 把主题设为simple -->
+    <constant name="struts.ui.theme" value="simple" />
+	
+    <package name="default" namespace="/" extends="struts-default">
+    
+    
+    	<interceptors>
+    		<!-- 声明拦截器 -->
+    		<interceptor name="checkPrivilege" class="cn.itcast.oa.util.CheckPrivilegeInterceptor"></interceptor>
+    		
+    		<!-- 配置我们自己的拦截器栈 -->
+    		<interceptor-stack name="myDefaultStack">
+    			<interceptor-ref name="checkPrivilege"></interceptor-ref>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	
+    	<!-- 配置默认的拦截器栈 -->
+    	<default-interceptor-ref name="myDefaultStack"></default-interceptor-ref>
+    
+    
+    	<!-- 配置全局的Result -->
+    	<global-results>
+    		<result name="loginUI">/WEB-INF/jsp/loginoutAction/loginUI.jsp</result>
+    		<result name="noPrivilegeUI">/noPrivilegeUI.jsp</result>
+    	</global-results>
+    
+    	
+    	<!-- 配置测试用的action -->
+    	<action name="Test" class="testAction">
+    		<result name="success">/test.jsp</result>
+    		<!-- 默认的name就是"success"，但是最好还是写上 -->
+    	</action>
+    	
+    	
+    	<!-- 岗位管理 -->
+    	<action name="role_*" class="roleAction" method="{1}">
+    		<result name="list">/WEB-INF/jsp/roleAction/list.jsp</result>
+    		<result name="saveUI">/WEB-INF/jsp/roleAction/saveUI.jsp</result>
+    		<result name="setPrivilegeUI">/WEB-INF/jsp/roleAction/setPrivilegeUI.jsp</result>
+    		<result name="toList" type="redirectAction">role_list</result>
+    		<!-- redirectAction表示重定向到role_list.do(后缀改为了do,默认为action)的action -->
+    	</action>
+    	
+    	<!-- 信息统计 -->
+    	<action name="info_*" class="infoAction" method="{1}">
+    		<result name="sexlist">/WEB-INF/jsp/infoAction/sexlist.jsp</result>
+    		<result name="agelist">/WEB-INF/jsp/infoAction/agelist.jsp</result>
+    		<result name="degreelist">/WEB-INF/jsp/infoAction/degreelist.jsp</result>
+    	</action>
+    	
+    	<!-- 食堂模拟 -->
+    	<action name="canteen_*" class="canteenAction" method="{1}">
+    		<result name="home">/WEB-INF/jsp/canteenAction/index.jsp</result>
+    		<result name="showcount">/WEB-INF/jsp/canteenAction/showcount.jsp</result>
+    		<result name="usertocanteen">/WEB-INF/jsp/canteenAction/usertocanteen.jsp</result>
+    	</action>
+    	
+    	
+    	<!-- 部门管理 -->
+    	<action name="department_*" class="departmentAction" method="{1}">
+    		<result name="list">/WEB-INF/jsp/departmentAction/list.jsp</result>
+    		<result name="saveUI">/WEB-INF/jsp/departmentAction/saveUI.jsp</result>
+    		<result name="toList" type="redirectAction">department_list?parentId=${parentId}</result>
+    	</action>
+    	
+    	
+    	<!-- 用户管理 -->
+    	<action name="user_*" class="userAction" method="{1}">
+    		<result name="list">/WEB-INF/jsp/userAction/list.jsp</result>
+    		<result name="saveUI">/WEB-INF/jsp/userAction/saveUI.jsp</result>
+    		<result name="toList" type="redirectAction">user_list</result>
+    	</action>
+    	
+    	
+    	<!-- 登录注销功能 -->
+    	<action name="loginout_*" class="loginoutAction" method="{1}">
+    		<result name="logout">/WEB-INF/jsp/loginoutAction/logout.jsp</result>
+    		<result name="toHome" type="redirect">/index.jsp</result>
+    	</action>
+    	
+    	
+    	<!-- 首页 -->
+    	<action name="home_*" class="homeAction" method="{1}">
+    		<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
+    	</action>
+    	
+    	
+    	<!-- 版块管理 -->
+    	<action name="forumManage_*" class="forumManageAction" method="{1}">
+    		<result name="list">/WEB-INF/jsp/forumManageAction/list.jsp</result>
+    		<result name="saveUI">/WEB-INF/jsp/forumManageAction/saveUI.jsp</result>
+    		<result name="toList" type="redirectAction">forumManage_list</result>
+    	</action>
+    	
+    	
+    	<!-- 论坛：版块相关功能 -->
+    	<action name="forum_*" class="forumAction" method="{1}">
+    		<result name="list">/WEB-INF/jsp/forumAction/list.jsp</result>
+    		<result name="show">/WEB-INF/jsp/forumAction/show.jsp</result>
+    	</action>
+    	
+    	<!-- 论坛：主题相关功能 -->
+    	<action name="topic_*" class="topicAction" method="{1}">
+    		<result name="show">/WEB-INF/jsp/topicAction/show.jsp</result>
+    		<result name="addUI">/WEB-INF/jsp/topicAction/addUI.jsp</result>
+    		<result name="toShow" type="redirectAction">topic_show?id=${#topicId}</result>
+    	</action>
+    	
+    	<!-- 论坛：回复相关功能 -->
+    	<action name="reply_*" class="replyAction" method="{1}">
+    		<result name="addUI">/WEB-INF/jsp/replyAction/addUI.jsp</result>
+    		<result name="toTopicShow" type="redirectAction">topic_show?id=${topicId}</result>
+    	</action>
+    	
+    </package>
+
+</struts>

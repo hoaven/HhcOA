@@ -1,0 +1,87 @@
+1，设计 BaseDao 与 BaseDaoImpl
+	1，设计接口 BaseDao
+		1，每个实体都应有一个对应的Dao接口，封装了对这个实体的数据库操作。例
+			实体			Dao接口				实现类
+			========================================================
+			User			--> UserDao			--> UserDaoImpl
+			Role			--> RoleDao			--> RoleDaoImpl
+			Department		--> DepartmentDao	--> DepartmentDaoImpl
+			Article			--> ArticleDao		--> ArticleDaoImpl
+			...
+		2，在每个Dao接口中都应有一个基本的增删改查的方法，
+			但每个Dao接口中都写一遍就是重复的代码，可以把这些方法抽取到一个父接口中，定义为：
+			public interface BaseDao<T> {
+				save(entity : T) : void
+				delete(id : Serializable) : void
+				update(entity : T) :void
+				getById(id : Serializable) : T
+				getByIds(ids : Serializable[]) : List<T>
+				findAll() : List<T>
+			}
+		3，说明：
+			1，使用泛型的技术，可以在使用时更方便，如：User user = userDao.getById(1L); // 不需要强制转型
+			2，getById(id : Long) 与 getByIds(ids : Long[]) 不要合并为一个有可变参数的方法，
+				因为那个用起来就不方便了，比如要经常使用的根据一个id获取一个对象时就很不方便：
+				List<User> list = userDao.getByIds(1L); User user = list.size() > 0 ? list.get(0) : null。
+			3，以后再有Dao接口就可以继承这个 BaseDao，以拥有基本的增删改查方法，如：
+				UserDao extends BaseDao<User>
+				RoleDao extends BaseDao<Role>
+	2，设计实现类 BaseDaoImpl
+		1，每个Dao的接口还要有相应的实现类才可以，在每个DaoImpl中都要实现Dao接口中定义的所有方法，
+			当然也包括公共的增删改查方法（BaseDao中定义的6个基本方法）。
+		2，每个DaoImpl中都实现一遍公共方法显示是重复的，所以也可以抽取出来为一个父类BaseDaoImpl，
+			在BaseDaoImpl中实现了BaseDao接口的所有方法，我们的DaoImpl只需要继承他就可以不用重复的写公共方法的实现了。
+			声明如下：
+				public class BaseDaoImpl<T> implements BaseDao<T> {
+					@Resource private SessionFactory sessionFactory; // 让Spring注入sessionFactory 
+					private Class<T> clazz; // 要想办法得到T的Class
+
+					public void save(T entity) { }
+					public void delete(Long id) { }
+					public void update(T entity) { }
+					public T getById(Long id) { }
+					public List<T> getByIds(Long[] ids) { }
+					public List<T> findAll() { }
+				}
+			在实现方法时，获取Session的代码为：sessionFactory.getCurrentSession()
+		3，在获取clazz时有两种方法
+			1，方法一：
+				1，把clazz声明成protected修饰符的，这样子类中就可以访问了，
+				2，在每个子类的构造方法中传递这个属性的值，如：
+					public RoleDaoImpl() { clazz = Role.class; }
+					public UserDaoImpl() { clazz = User.class; }
+			2，方法二：使用反射的方式：
+				1，在BaseDaoImpl的默认构造方法中写如下代码就可以了：
+					ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+					clazz = (Class) pt.getActualTypeArguments()[0];
+				2，说明：BaseDaoImpl不能直接使用，只能使用他的子类，否则这段代码就无效了。
+
+2，页面中的JS表单验证（使用jQuery.validate）
+	1，基本用法
+		1，导入JS文件
+			<script type="text/javascript" src="lib/jquery.js"></script>
+			<script type="text/javascript" src="lib/jquery.metadata.js"></script>
+			<script type="text/javascript" src="jquery.validate.js"></script>
+		2，指定哪个表单要在提交前要先进行验证
+			$(function(){
+				$("form").validate();	
+			})
+		3，指定表单中字段的验证规则
+			<input type="text" name="name" class="required" />
+	2，指定验证规则的方式
+		1，多个class之间使用空格隔开，如 class="required email"
+		2，使用json方式，如 class="{required: true, minlength: 2}" 
+		3，混合方式一与方式二，如 class="required {minlength: 2}"
+	3，内置的验证规则
+		有很多，见文档
+	4，修改提示消息
+		1，默认提示
+		2，针对某个表单的个性化提示
+	5，修改提示消息的样式
+		<style type="text/css">
+			label.error{
+				margin-left: 10px;
+				color: red;
+			}
+		</style>
+

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/hhcOA/!svn/ver/3/hhcOA/config
+END
+default.properties
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/hhcOA/!svn/ver/3/hhcOA/config/default.properties
+END
+hibernate.cfg.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/hhcOA/!svn/ver/4/hhcOA/config/hibernate.cfg.xml
+END
+.struts.mex
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/hhcOA/!svn/ver/3/hhcOA/config/.struts.mex
+END
+jdbc.properties
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/hhcOA/!svn/ver/3/hhcOA/config/jdbc.properties
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/hhcOA/!svn/ver/3/hhcOA/config/log4j.properties
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/hhcOA/!svn/ver/3/hhcOA/config/applicationContext.xml
+END
+struts.xml
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/hhcOA/!svn/ver/4/hhcOA/config/struts.xml
+END

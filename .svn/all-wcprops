@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/svn/hhcOA/!svn/ver/2/hhcOA
+END
+install.bat
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/hhcOA/!svn/ver/3/hhcOA/install.bat
+END
+.mymetadata
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/hhcOA/!svn/ver/3/hhcOA/.mymetadata
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/hhcOA/!svn/ver/3/hhcOA/.project
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/hhcOA/!svn/ver/3/hhcOA/.classpath
+END

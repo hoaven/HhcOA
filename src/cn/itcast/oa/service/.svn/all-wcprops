@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/service
+END
+RoleService.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/service/RoleService.java
+END
+ReplyService.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/service/ReplyService.java
+END
+CanteenService.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/hhcOA/!svn/ver/4/hhcOA/src/cn/itcast/oa/service/CanteenService.java
+END
+UserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/hhcOA/!svn/ver/4/hhcOA/src/cn/itcast/oa/service/UserService.java
+END
+TopicService.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/service/TopicService.java
+END
+ForumService.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/service/ForumService.java
+END
+PrivilegeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/service/PrivilegeService.java
+END
+DepartmentService.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/service/DepartmentService.java
+END

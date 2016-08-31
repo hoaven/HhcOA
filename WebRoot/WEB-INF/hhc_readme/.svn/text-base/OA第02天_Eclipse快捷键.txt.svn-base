@@ -1,0 +1,36 @@
+
+
+   《常用快捷键，一定要记住的》
+
+Alt + /	            代码提示
+
+Shift + Enter		相当于先按End在按回车，即在当前行下面另起一个新行。
+
+Ctrl + Shift + F    格式化代码
+
+Ctrl + Shift + O	自动导入包
+
+Ctrl + /            注释/取消注释
+
+Ctrl + Shift + T    打开类或接口的文件 
+
+Ctrl + D			删除整行
+
+Ctrl + 1            快速修复错误
+
+Alt + ↑            当前行的代码移动到上面去
+
+Alt + ↓            当前行的代码移动到下面去
+
+Ctrl + Alt + ↓     复制当前行到下面
+
+
+
+Ctrl + F11          直接运行
+
+F11                 Debug模式运行
+
+
+Ctrl + Shift + X	转为大写
+
+Ctrl + Shift + Y	转为小写

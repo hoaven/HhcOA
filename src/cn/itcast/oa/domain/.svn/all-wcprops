@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain
+END
+Department.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Department.hbm.xml
+END
+Topic.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Topic.java
+END
+Role.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Role.hbm.xml
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/hhcOA/!svn/ver/4/hhcOA/src/cn/itcast/oa/domain/User.java
+END
+Reply.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Reply.java
+END
+Canteen.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/hhcOA/!svn/ver/4/hhcOA/src/cn/itcast/oa/domain/Canteen.java
+END
+Forum.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Forum.hbm.xml
+END
+Forum.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Forum.java
+END
+PageBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/PageBean.java
+END
+Reply.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Reply.hbm.xml
+END
+Canteen.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/hhcOA/!svn/ver/4/hhcOA/src/cn/itcast/oa/domain/Canteen.hbm.xml
+END
+User.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/hhcOA/!svn/ver/4/hhcOA/src/cn/itcast/oa/domain/User.hbm.xml
+END
+Article.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Article.java
+END
+Role.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Role.java
+END
+Topic.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/hhcOA/!svn/ver/4/hhcOA/src/cn/itcast/oa/domain/Topic.hbm.xml
+END
+Department.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Department.java
+END
+Privilege.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Privilege.hbm.xml
+END
+Privilege.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/hhcOA/!svn/ver/3/hhcOA/src/cn/itcast/oa/domain/Privilege.java
+END

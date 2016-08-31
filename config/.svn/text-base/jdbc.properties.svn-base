@@ -1,0 +1,4 @@
+jdbcUrl		= jdbc:mysql://localhost/itcastoa
+driverClass = com.mysql.jdbc.Driver
+username	= root
+password	=root

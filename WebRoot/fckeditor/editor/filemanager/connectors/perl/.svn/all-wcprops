@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl
+END
+commands.pl
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl/commands.pl
+END
+basexml.pl
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl/basexml.pl
+END
+connector.cgi
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl/connector.cgi
+END
+io.pl
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl/io.pl
+END
+upload.cgi
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl/upload.cgi
+END
+util.pl
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl/util.pl
+END
+upload_fck.pl
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/hhcOA/!svn/ver/3/hhcOA/WebRoot/fckeditor/editor/filemanager/connectors/perl/upload_fck.pl
+END

@@ -1,0 +1,216 @@
+一，集成 Spring 与 Hibernate（目的：让spring管理单例的SessionFactory、让spring管理事务）
+	1，配置SessionFactory
+		1，配置
+			---------------------- applicationContext.xml ------------------------
+			<?xml version="1.0" encoding="UTF-8"?>
+			<beans xmlns="http://www.springframework.org/schema/beans"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:context="http://www.springframework.org/schema/context"
+				xmlns:tx="http://www.springframework.org/schema/tx"
+				xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+							http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+							http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+				<!-- 自动扫描与装配bean -->
+				<context:component-scan base-package="cn.itcast.oa"></context:component-scan>
+
+
+				<!-- 导入外部的properties配置文件 -->
+				<context:property-placeholder location="classpath:jdbc.properties"/>
+
+
+				<!-- 配置数据库连接池 -->
+				<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+					<!-- =========== 数据库连接信息 =========== -->
+					<property name="jdbcUrl" value="${jdbcUrl}"></property>
+					<property name="driverClass" value="${driverClass}"></property>
+					<property name="user" value="${username}"></property>
+					<property name="password" value="${password}"></property>
+					<!-- =========== 连接池的管理配置 =========== -->
+					<!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+					<property name="initialPoolSize" value="3"></property>
+					<!--连接池中保留的最小连接数。Default: 3 -->
+					<property name="minPoolSize" value="3"></property>
+					<!--连接池中保留的最大连接数。Default: 15 -->
+					<property name="maxPoolSize" value="5"></property>
+					<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+					<property name="acquireIncrement" value="3"></property>
+					<!-- 控制数据源内加载的PreparedStatements数量。如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0 -->
+					<property name="maxStatements" value="8"></property>
+					<!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
+					<property name="maxStatementsPerConnection" value="5"></property>
+					<!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+					<property name="maxIdleTime" value="1800"></property>
+				</bean>
+
+
+				<!-- 配置SessionFactory -->
+				<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+					<property name="dataSource" ref="dataSource"></property>
+					<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+				</bean>
+
+				
+				<!-- 配置声明式的事务管理（采用基于注解的方式） -->
+				<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+					<property name="sessionFactory" ref="sessionFactory"></property>
+				</bean>
+				<tx:annotation-driven transaction-manager="txManager"/>
+			</beans>
+
+			---------------------- jdbc.properties配置文件的内容 ------------------------
+			jdbcUrl = jdbc:mysql:///itcastoa
+			driverClass = com.mysql.jdbc.Driver
+			username = root
+			password = root
+			
+			---------------------- hibernate.cfg.xml配置文件的内容 ------------------------
+			<!DOCTYPE hibernate-configuration PUBLIC
+			"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+			"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+			<hibernate-configuration>
+				<session-factory>
+
+			<!--  将需要修改的信息放在一个文件里，并且不使用hibernate来管理数据源
+					<property name="hibernate.connection.url">jdbc:mysql://localhost/itcastoa</property>
+					<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+					<property name="hibernate.connection.username">root</property>
+					<property name="hibernate.connection.password">root</property>
+			-->
+					<!-- ctrl+shift+t打开"open type"进行搜索 -->
+					<property name="hibernate.dialect">
+						org.hibernate.dialect.MySQL5InnoDBDialect
+					</property>
+
+					<!-- 其他配置信息 -->
+					<property name="show_sql">true</property>
+					<property name="hbm2ddl.auto">update</property>
+
+					<!-- 声明映射文件 -->
+					<mapping resource="cn/itcast/oa/domain/User.hbm.xml" />
+					<mapping resource="cn/itcast/oa/domain/Role.hbm.xml" />
+					<mapping resource="cn/itcast/oa/domain/Department.hbm.xml" />
+					<mapping resource="cn/itcast/oa/domain/Privilege.hbm.xml" />
+					<mapping resource="cn/itcast/oa/domain/Forum.hbm.xml" />
+					<mapping resource="cn/itcast/oa/domain/Reply.hbm.xml" />
+					<mapping resource="cn/itcast/oa/domain/Topic.hbm.xml" />
+				</session-factory>
+			</hibernate-configuration>
+		2，测试代码
+			@Test// 测试 SessionFactory 的配置
+			public void testSessionFactory(){
+				SessionFactory sessionFactory = (SessionFactory) ac.getBean("sessionFactory");
+				Assert.assertNotNull(sessionFactory.openSession());
+			}
+	2，配置声明式事务（使用基于注解的方式）
+		1，配置
+			<!-- 配置事务管理器 -->
+			<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+				<property name="sessionFactory" ref="sessionFactory"></property>
+			</bean>
+			<!-- 配置基于注解的事务支持-->
+			<tx:annotation-driven transaction-manager="transactionManager"/>
+		2，测试代码
+			1，Service类
+				@Service
+				public class InsertUserService {
+					@Resource
+					private SessionFactory sessionFactory;
+					@Transactional
+					public void addUsers() {
+						sessionFactory.getCurrentSession().save(new User());
+						// int a = 1 / 0; // 这行会抛异常
+						sessionFactory.getCurrentSession().save(new User());
+					}
+				}
+			2，单元测试
+				@Test // 测试声明式事务
+				public void testTransaction() {
+					InsertUserService service = (InsertUserService) ac.getBean("insertUserService");
+					service.addUsers();
+				}
+	3，在web.xml中配置 spring 的 OpenSessionInView 过滤器（解决抛LazyInitializationException的问题）
+		1，配置
+			<!-- 配置 spring 的 OpenSessionInView 过滤器 -->
+			<filter>
+				<filter-name>OpenSessionInView</filter-name>
+				<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+			</filter>
+			<filter-mapping>
+				<filter-name>OpenSessionInView</filter-name>
+				<url-pattern>*.action</url-pattern>
+			</filter-mapping>
+		2，LazyInitializationException异常说明
+			1，对于集合属性，默认是lazy="true"的，在第一次使用时才加载。
+			2，但在加载时，如果Session已经关掉了就会抛LazyInitializationException异常
+
+二，集成 Spring 与 Struts2.1.8.1(让spring管理Action的实例)
+	1，在web.xml配置监听器（Spring Reference 15.2 Common configuration）
+		<!-- 集成Spring -->
+		<listener>
+			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		</listener>
+		<context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/classes/applicationContext*.xml</param-value>
+		</context-param>
+	2，拷贝一个用于整合的jar包（与Spring整合用的一个插件）
+		struts-2.1.8.1/lib/struts2-spring-plugin-2.1.8.1.jar
+	3，测试
+		1，写Action类与Service类
+			@Controller("testAction")
+			@Scope("prototype")
+			public class TestAction extends ActionSupport {
+				@Resource
+				private TestService testService;
+				@Override
+				public String execute(){
+					testService.saveTwoUser();
+					return SUCCESS;
+				}
+			}
+			@Service
+			public class TestService {
+				@Resource
+				private SessionFactory sessionFactory;
+				@Transactional
+				public void saveTwoUser() {
+					sessionFactory.getCurrentSession().save(new User());
+					// int a = 1 / 0; // 这行会抛异常
+					sessionFactory.getCurrentSession().save(new User());
+				}
+			}
+		2，在struts.xml中配置Action
+			<!-- 测试 -->
+			<action name="test" class="testAction">
+				<result>/test.jsp</result>
+			</action>
+		3，部署到Tomcat中并访问测试。
+
+	4，说明：
+		1，在写Action时要指定 @Controller 与 @Scope("prototype")
+		2，在struts.xml中配置action时，在class属性中写bean的名称
+		
+三，整合Spring与Jbpm4（jBPM4.4 Developers Guide, Chapter 17. Spring Integration）	
+	1，在jbpm.cfg.xml中
+		1，删除配置：
+			<import resource="jbpm.tx.hibernate.cfg.xml" />
+		2，增加配置：
+			<!-- 整合Spring -->
+			<import resource="jbpm.tx.spring.cfg.xml" />
+	2，在applicationContext.xml中配置
+		<!-- 配置ProcessEngine（整合jBPM4） -->
+		<bean id="springHelper" class="org.jbpm.pvm.internal.processengine.SpringHelper">
+			<!-- jbpmCfg是相对于classpath的相对路径，默认值为jbpm.cfg.xml -->
+			<property name="jbpmCfg" value="jbpm.cfg.xml"></property>
+		</bean>
+		<bean id="processEngine" factory-bean="springHelper" factory-method="createProcessEngine" />
+	3，测试
+		@Test // 测试ProcessEngine
+		public void testProcessEngine() {
+			ProcessEngine processEngine = (ProcessEngine) ac.getBean("processEngine");
+			Assert.assertNotNull(processEngine);
+		}
+
